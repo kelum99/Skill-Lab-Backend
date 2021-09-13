@@ -24,6 +24,15 @@ app.listen(4000, err => {
   if (!err) {
     console.log("successfully connected to the port ", 4000);
   } else {
+  
     console.log("error occured ", err);
   }
 });
+
+
+const routContact = require("./Routes/FeedbackRoute");
+app.use("/api/feedback", routContact);
+
+
+const routReview = require("./Routes/FeedbackRoute");
+app.use("/api/feedback", routReview);
