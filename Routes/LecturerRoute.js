@@ -60,10 +60,22 @@ router.get("/notice/findAll", async (req, res) => {
   }
 });
 
-//Delete  All Questions List
+//Get Specific question
+router.get("/question/:id", async (req, res) => {
+  try {
+      const question = await Question.findById(req.params.id);
+      res.json(question);
+      console.log("result , ", question);
+  } catch (err) {
+      console.log("error in getting marks", err);
+      res.status(204).send({ message: "failed", data: err });
+  }
+});
+
+//Delete Questions List
 router.delete("/question/:id", async (req, res) => {
   try {
-    const deleteQuestion = await Question.deleteOne(req.params);
+    const deleteQuestion = await Question.findByIdAndRemove(req.params.id);
     res.json(deleteQuestion);
     console.log("Deleted!");
   } catch (err) {
@@ -72,10 +84,10 @@ router.delete("/question/:id", async (req, res) => {
   }
 });
 
-//Delete  All Notices
+//Delete Notices
 router.delete("/notice/:id", async (req, res) => {
   try {
-    const deleteNotice = await Notice.deleteOne(req.params);
+    const deleteNotice = await Notice.findByIdAndRemove(req.params.id);
     res.json(deleteNotice);
     console.log("Deleted!");
   } catch (err) {
