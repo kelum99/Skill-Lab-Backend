@@ -5,7 +5,7 @@ const walletSchema = new mongoose.Schema({
             type: String,
             required: true,
             min: 5,
-            max: 255,
+            max: 255
         },
         cardNumber:{
             type: Number,
