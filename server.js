@@ -20,14 +20,11 @@ mongoose.connect(process.env.DB_CONNECT, err => {
 const routWallet = require("./Routes/FinanceRoute");
 app.use("/api/finance", routWallet);
 
-/*
-const image_upload = require("./Routes/courseRoute");
-app.use("/api/course",image_upload);*/
+const routEnroll = require("./Routes/StudentRoute");
+app.use("/api/student",routEnroll);
 
-const coursecreate = require("./Routes/courseRoute");
-app.use("/api/course",coursecreate);
-
-
+const courseroute = require("./Routes/CourseRoute");
+app.use("/api/course",courseroute);
 
 
 app.listen(4000, err => {

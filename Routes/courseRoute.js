@@ -33,6 +33,20 @@ router.put("/coursecreate/:id", async (req, res) => {
     res.status(204).send({ message: "failed", data: err });
   }
 });
+ 
+// get one 
+router.get("/coursecreate/:id", async (req, res) => {
+  try {
+      const courseone = await  CourseCreate.findById(req.params.id);
+      res.json(courseone);
+      console.log("result , ", courseone);
+  } catch (err) {
+      console.log("error in getting courses", err);
+      res.status(204).send({ message: "failed", data: err });
+  }
+});
+
+
 
 
 //Retrive all  data  for lecturer created courses 
@@ -68,6 +82,8 @@ router.post("/lessonscreated", async (req, res) => {
 
 
 
+
+
 //Retrive all  course content for a particular courses 
 
 router.get("/lessonscreated/findAll", async (req, res) => {
@@ -81,17 +97,17 @@ router.get("/lessonscreated/findAll", async (req, res) => {
 });
 
 //delete  by id 
-router.delete("/lessonscreated/:id", async (req, res) => {
+
+ router.delete("/coursecreate/:id", async (req, res) => {
   try {
-    const deleteLessonCreate = await lessonsCreated.deleteOne(req.params);
-    res.json(deleteLessonCreate);
+    const deleteCourseCreate = await CourseCreate.findByIdAndRemove(req.params.id);
+    res.json(deleteCourseCreate);
     console.log("Deleted!");
   } catch (err) {
     console.log("error in get data", err);
     res.status(204).send({ message: "failed", data: err });
   }
 });
-
 
 
 

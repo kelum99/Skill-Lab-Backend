@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 
 const coursecreateSchema = new mongoose.Schema(
   {
+    
     name: {
       type: String,
       trim: true,
@@ -38,7 +39,7 @@ const coursecreateSchema = new mongoose.Schema(
 
     
   });
-
+   
   
 
 const CourseCreate = mongoose.model('CourseCreate', coursecreateSchema);
