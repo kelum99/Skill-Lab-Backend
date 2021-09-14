@@ -61,7 +61,6 @@ router.get("/wallet/findAll/:name", async (req, res) => {
   }
 });
 
-
 //Delet
 router.delete("/wallet/:id", async (req, res) => {
   try {
