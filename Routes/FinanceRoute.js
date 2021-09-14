@@ -47,6 +47,7 @@ router.get("/wallet/findAll/:name", async (req, res) => {
   }
 });
 
+
 router.delete("/wallet/:id", async (req, res) => {
   try {
     const deleteWallet = await Wallet.deleteOne(req.params);
