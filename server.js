@@ -43,8 +43,12 @@ app.listen(4000, err => {
 
 
 const routQuestion = require("./Routes/LecturerRoute");
+<<<<<<< HEAD
+app.use("/api/lecturer", routQuestion);
+=======
 app.use("/api/lecturer", routQuestion);
 
 
 const routReview = require("./Routes/FeedbackRoute");
 app.use("/api/feedback", routReview);
+>>>>>>> 322871e21e93e44880a41ed7d065682113453749
