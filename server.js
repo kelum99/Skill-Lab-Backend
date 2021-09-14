@@ -33,6 +33,3 @@ app.listen(4000, err => {
 
 const routQuestion = require("./Routes/LecturerRoute");
 app.use("/api/lecturer", routQuestion);
-
-const routNotice = require("./Routes/LecturerRoute");
-app.use("/api/lecturer", routNotice);
