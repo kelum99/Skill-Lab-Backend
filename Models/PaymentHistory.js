@@ -1,27 +1,25 @@
 const mongoose = require('mongoose');
 
-const walletSchema = new mongoose.Schema({
-        name:{
+const paymentHistorySchema = new mongoose.Schema({
+        reason:{
             type: String,
             required: true,
             min: 5,
             max: 255
         },
-        cardNumber:{
+        amount:{
             type: Number,
             required: true,
             maxLength: 16
         },
-        expireDate:{
+        date:{
             type: Date,
             default: Date.now
         },
-        cvv:{
-            type: Number,
-            required: true,
-            max: 999
+        status:{
+            type: String
         }
 });
 
-const Wallet = mongoose.model('Wallet', walletSchema);
-module.exports = Wallet;
+const PaymentHistory = mongoose.model('PaymentHistory', paymentHistorySchema);
+module.exports = PaymentHistory ;
