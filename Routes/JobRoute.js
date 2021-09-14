@@ -63,9 +63,9 @@ router.get("/job/:id", async (req, res) => {
   })
 
   //Delete
-  router.delete("/job/:id", async (req, res) => {
+  router.delete("/deletejob/:id", async (req, res) => {
     try {
-      const deleteCareere = await Careere.deleteOne(req.params);
+      const deleteCareere = await Careere.findByIdAndRemove(req.params.id);
       res.json(deleteCareere);
       console.log("Deleted!");
     } catch (err) {
@@ -73,6 +73,25 @@ router.get("/job/:id", async (req, res) => {
       res.status(204).send({ message: "failed", data: err });
     }
   });
+
+
+
+
+router.put("/updatejob/:id", async (req, res) => {
+  try {
+      const deleteCareere = await Careere.findByIdAndUpdate(req.params.id, req.body, { new: true });
+      res.json(deleteCareere);
+      console.log("result , ", deleteCareere);
+  } catch (err) {
+      console.log("error in getting career details", err);
+      res.status(204).send({ message: "failed", data: err });
+  }
+
+});
+
+
+
+
 
 
 
@@ -140,9 +159,9 @@ router.get("/job/:id", async (req, res) => {
 
   
     //Delete
-    router.delete("/delete/:id", async (req, res) => {
+    router.delete("/deleteapplicant/:id", async (req, res) => {
       try {
-        const deleteApplicant = await Applicant.deleteOne(req.params);
+        const deleteApplicant = await Applicant.findByIdAndRemove(req.params.id);
         res.json(deleteApplicant);
         console.log("Deleted!");
       } catch (err) {
@@ -150,5 +169,31 @@ router.get("/job/:id", async (req, res) => {
         res.status(204).send({ message: "failed", data: err });
       }
     });
+
+
+    //Update enroll
+router.put("/updateapplicant/:id", async (req, res) => {
+  try {
+      const updateEnroll = await Enroll.findByIdAndUpdate(req.params.id, req.body, { new: true });
+      res.json(updateEnroll);
+      console.log("result , ", updateEnroll);
+  } catch (err) {
+      console.log("error in getting course details", err);
+      res.status(204).send({ message: "failed", data: err });
+  }
+
+});
+
+//Unenroll from a course - delete enroll
+router.delete("/mycourses/:id", async (req, res) => {
+  try {
+      const Unenroll = await Enroll.findByIdAndRemove(req.params.id);
+      res.json(Unenroll);
+      console.log("Deleted!");
+  } catch (err) {
+      console.log("error in deleting", err);
+      res.status(204).send({ message: "failed", data: err });
+  }
+});
 
 module.exports = router;
