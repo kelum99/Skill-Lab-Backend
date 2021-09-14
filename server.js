@@ -30,8 +30,6 @@ app.use("/api/student",routEnroll);
 const courseroute = require("./Routes/CourseRoute");
 app.use("/api/course",courseroute);
 
-
-
 app.listen(4000, err => {
   if (!err) {
     console.log("successfully connected to the port ", 4000);
@@ -41,14 +39,13 @@ app.listen(4000, err => {
   }
 });
 
+//Authentication
+const routAuthentication = require("./Routes/AuthenticationRoute");
+app.use("/api/AuthenticationRoute", routAuthentication);
 
 const routQuestion = require("./Routes/LecturerRoute");
-<<<<<<< HEAD
 app.use("/api/lecturer", routQuestion);
-=======
-app.use("/api/lecturer", routQuestion);
-
 
 const routReview = require("./Routes/FeedbackRoute");
 app.use("/api/feedback", routReview);
->>>>>>> 322871e21e93e44880a41ed7d065682113453749
+
