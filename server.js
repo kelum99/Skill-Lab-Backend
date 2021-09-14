@@ -20,9 +20,11 @@ mongoose.connect(process.env.DB_CONNECT, err => {
 const routWallet = require("./Routes/FinanceRoute");
 app.use("/api/finance", routWallet);
 
+const routeProduct = require("./Routes/StoreRoute");
+app.use("/api/store", routeProduct);
+
 const routCareer = require("./Routes/JobRoute");
 app.use("/api/job", routCareer);
-
 
 const routEnroll = require("./Routes/StudentRoute");
 app.use("/api/student",routEnroll);
