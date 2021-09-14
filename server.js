@@ -25,6 +25,8 @@ app.use("/api/job", routCareer);
 
 
 
+const routEnroll = require("./Routes/StudentRoute");
+app.use("/api/student",routEnroll);
 
 app.listen(4000, err => {
   if (!err) {
