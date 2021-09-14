@@ -20,6 +20,12 @@ mongoose.connect(process.env.DB_CONNECT, err => {
 const routWallet = require("./Routes/FinanceRoute");
 app.use("/api/finance", routWallet);
 
+const routeProduct = require("./Routes/StoreRoute");
+app.use("/api/store", routeProduct);
+
+const routeCart = require("./Routes/StoreRoute");
+app.use("/api/store", routeCart);
+
 app.listen(4000, err => {
   if (!err) {
     console.log("successfully connected to the port ", 4000);
@@ -27,3 +33,4 @@ app.listen(4000, err => {
     console.log("error occured ", err);
   }
 });
+
