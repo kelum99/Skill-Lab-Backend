@@ -27,3 +27,28 @@ app.listen(4000, err => {
     console.log("error occured ", err);
   }
 });
+
+
+
+
+
+//Authentication
+
+const routAuthentication = require("./Routes/AuthenticationRoute");
+app.use("/api/AuthenticationRoute", routAuthentication);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
