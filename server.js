@@ -31,11 +31,6 @@ const courseroute = require("./Routes/CourseRoute");
 app.use("/api/course",courseroute);
 
 
-<<<<<<< HEAD
-const routEnroll = require("./Routes/StudentRoute");
-app.use("/api/student",routEnroll);
-=======
->>>>>>> 322871e21e93e44880a41ed7d065682113453749
 
 app.listen(4000, err => {
   if (!err) {
