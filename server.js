@@ -33,8 +33,7 @@ app.listen(4000, err => {
 });
 
 
-const routContact = require("./Routes/FeedbackRoute");
-app.use("/api/feedback", routContact);
+
 
 
 const routReview = require("./Routes/FeedbackRoute");
