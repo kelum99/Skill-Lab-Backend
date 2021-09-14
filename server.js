@@ -37,8 +37,8 @@ app.listen(4000, err => {
 });
 
 
-const routContact = require("./Routes/FeedbackRoute");
-app.use("/api/feedback", routContact);
+const routQuestion = require("./Routes/LecturerRoute");
+app.use("/api/lecturer", routQuestion);
 
 
 const routReview = require("./Routes/FeedbackRoute");
