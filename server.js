@@ -33,6 +33,9 @@ app.use("/api/course",courseroute);
 const routQuestion = require("./Routes/LecturerRoute");
 app.use("/api/lecturer", routQuestion);
 
+const routAuthentication = require("./Routes/AuthenticationRoute");
+app.use("/api/AuthenticationRoute", routAuthentication);
+
 const routReview = require("./Routes/FeedbackRoute");
 app.use("/api/feedback", routReview);
 
