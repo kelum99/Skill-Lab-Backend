@@ -6,7 +6,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 const app = express();
 
-app.use(express.json());
+app.use(express.json({limit:"5mb"}));
 app.use(cors());
 
 mongoose.connect(process.env.DB_CONNECT, err => {
@@ -23,16 +23,23 @@ app.use("/api/finance", routWallet);
 const routEnroll = require("./Routes/StudentRoute");
 app.use("/api/student",routEnroll);
 
+const courseroute = require("./Routes/CourseRoute");
+app.use("/api/course",courseroute);
+
+
 app.listen(4000, err => {
   if (!err) {
     console.log("successfully connected to the port ", 4000);
   } else {
+  
     console.log("error occured ", err);
   }
 });
 
+
 const routQuestion = require("./Routes/LecturerRoute");
 app.use("/api/lecturer", routQuestion);
 
-const routNotice = require("./Routes/LecturerRoute");
-app.use("/api/lecturer", routNotice);
+
+const routReview = require("./Routes/FeedbackRoute");
+app.use("/api/feedback", routReview);
