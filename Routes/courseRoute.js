@@ -49,6 +49,12 @@ router.get("/coursecreate/:id", async (req, res) => {
 
 
 
+router.get("/coursecreate", async (_, res) => {
+  res.json(await CourseCreate.find({}));
+});
+
+
+
 //Retrive all  data  for lecturer created courses 
 
 router.get("/coursecreate/findAll", async (req, res) => {

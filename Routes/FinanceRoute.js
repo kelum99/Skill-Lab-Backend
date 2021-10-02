@@ -61,7 +61,6 @@ router.get("/wallet/findAll/:name", async (req, res) => {
   }
 });
 
-
 //Delet
 router.delete("/wallet/:id", async (req, res) => {
   try {
@@ -218,4 +217,5 @@ router.post("/withdrawHistory", async (req, res) => {
     res.status(500).send({ message: "failed", data: err });
   }
 });
+
 module.exports = router;
