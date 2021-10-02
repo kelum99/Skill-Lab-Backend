@@ -3,13 +3,25 @@ const Wallet = require("../Models/Wallet");
 const Bank = require("../Models/Bank");
 const PaymentHistory = require("../Models/PaymentHistory");
 const WithdrawHistory= require("../Models/WithdrawHistory");
+const extractToken = require("../TokenExtract");
+const jwt_decode = require('jwt-decode');
 
 
 //Wallet Routing
 //Insert
 router.post("/wallet", async (req, res) => {
   try {
-    const wallet = new Wallet(req.body);
+    const decodeHeader = jwt_decode(extractToken(req));
+    const userID = decodeHeader.data._id;
+    console.log("header",decodeHeader);
+    console.log("ID : ", userID);
+    const wallet = new Wallet({
+      name: req.body.name,
+      cardNumber: req.body.cardNumber,
+      expireDate: req.body.expireDate,
+      cvv: req.body.cvv,
+      userID: userID
+    });
     const savedWallet = await wallet.save();
     if (savedWallet) {
       res.status(201).send({ message: "success", data: savedWallet });
@@ -24,7 +36,7 @@ router.post("/wallet", async (req, res) => {
 });
 
 //Find All
-router.get("/wallet", async (_, res) => {
+router.get("/wallet", async (req, res) => {
   res.json(await Wallet.find({}));
 });
 
@@ -50,8 +62,8 @@ router.get("/wallet/find/:name", async (req, res) => {
   }
 });
 
-//Find All by Specific Parameter
-router.get("/wallet/findAll/:name", async (req, res) => {
+//Find All by UserID
+router.get("/wallet/findAll/:userID", async (req, res) => {
   try {
     const findAll = await Wallet.find(req.params);
     res.json(findAll);
@@ -112,8 +124,11 @@ router.post("/bank", async (req, res) => {
 });
 
 //Find All
-router.get("/bank", async (_, res) => {
+router.get("/bank", async (req, res) => {
+  const decodeHeader = jwt_decode(extractToken(req));
+  console.log("header",decodeHeader);
   res.json(await Bank.find({}));
+  
 });
 
 //Find by ID
