@@ -1,6 +1,11 @@
+const  AWS  = require('aws-sdk');
+const { nanoid } = require('nanoid');
+//const  vuid = require('vuid');
 const router = require("express").Router();
 const CourseCreate = require("../Models/CourseCreate");
 const  lessonsCreated = require("../Models/lessonsCreated");
+const ImageUpload = require("../Models/ImageUpload");
+
 
 
 //post the data from the course  created form to db
@@ -21,6 +26,8 @@ router.post("/coursecreate", async (req, res) => {
 });
 
 
+
+
 //edit  course (UPDATE)
 
 router.put("/coursecreate/:id", async (req, res) => {
@@ -34,7 +41,7 @@ router.put("/coursecreate/:id", async (req, res) => {
   }
 });
  
-// get one 
+// get one course for update & to retrieve a particular lesson
 router.get("/coursecreate/:id", async (req, res) => {
   try {
       const courseone = await  CourseCreate.findById(req.params.id);
@@ -48,7 +55,7 @@ router.get("/coursecreate/:id", async (req, res) => {
 
 
 
-
+//find all courses created 
 router.get("/coursecreate", async (_, res) => {
   res.json(await CourseCreate.find({}));
 });
@@ -66,6 +73,8 @@ router.get("/coursecreate/findAll", async (req, res) => {
     res.status(204).send({ message: "failed", data: err });
   }
 });
+
+
 
 
 
@@ -91,7 +100,7 @@ router.post("/lessonscreated", async (req, res) => {
 
 
 //Retrive all  course content for a particular courses 
-
+ 
 router.get("/lessonscreated/findAll", async (req, res) => {
   try {
     const findAll = await lessonsCreated.find(req.params);
@@ -102,6 +111,27 @@ router.get("/lessonscreated/findAll", async (req, res) => {
   }
 });
 
+// find a leson by course id 
+router.get("/lessonscreated/findAll/:cid", async (req, res) => {
+  try {
+    const findAll = await  lessonsCreated.find(req.params);
+    res.json(findAll);
+  } catch (err) {
+    console.log("error in get data", err);
+    res.status(204).send({ message: "failed", data: err });
+  }
+});
+
+//Find a lesson by  lesson ID
+router.get("/lessonscreated/:id", async (req, res) => {
+  try {
+    const findByIdc = await lessonsCreated.findById(req.params.id);
+    res.json(findByIdc);
+  } catch (err) {
+    console.log("error in get data", err);
+    res.status(204).send({ message: "failed", data: err });
+  }
+});
 //delete  by id 
 
  router.delete("/coursecreate/:id", async (req, res) => {
