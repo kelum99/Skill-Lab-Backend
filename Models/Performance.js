@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+
 const performSchema = new mongoose.Schema({
     studentID:{
         type:String,
@@ -22,8 +23,11 @@ const performSchema = new mongoose.Schema({
         required:true
     },
     result:{
-        type:String,
-        required:true
+        type: Number,
+        required:true,
+        min: 0,
+        max: 100
+
     },
 
 });
