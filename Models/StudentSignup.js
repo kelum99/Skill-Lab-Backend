@@ -49,7 +49,10 @@ const StudentSignupSchema = new mongoose.Schema({
         required: true,
         
     },
-
+    role:{
+        type: String,
+        
+    }
         
 });
 

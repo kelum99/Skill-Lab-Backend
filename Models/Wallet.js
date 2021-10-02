@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-
 const walletSchema = new mongoose.Schema({
         name:{
             type: String,
@@ -20,6 +19,10 @@ const walletSchema = new mongoose.Schema({
             type: Number,
             required: true,
             max: 999
+        },
+        userID:{
+            type: String,
+            required: true
         }
 });
 

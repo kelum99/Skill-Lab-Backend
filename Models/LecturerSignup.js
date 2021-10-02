@@ -53,8 +53,11 @@ const LecturerSignupSchema = new mongoose.Schema({
             required: true,
             
         },
-
-        
+        role:{
+            type: String,
+            
+        }
+      
 });
 
 const LecturerSignup = mongoose.model('LecturerSignup', LecturerSignupSchema);
