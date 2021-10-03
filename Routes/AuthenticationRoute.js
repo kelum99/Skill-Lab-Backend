@@ -1,75 +1,131 @@
 const router = require("express").Router();
-const LecturerSignup = require("../Models/LecturerSignup");
-const StudentSignup = require("../Models/StudentSignup");
+const CommonSignup = require("../Models/CommonSignup");
+const jwt = require("jsonwebtoken");
 
 
 //Student
 
-router.post("/StudentSignup", async (req, res) => {
-try {
-    const studentSignup = new StudentSignup(req.body);
-    const savedStudentSignup = await studentSignup.save();
-    if (savedStudentSignup) {
-      res.status(201).send({ message: "success", data: savedStudentSignup });
+router.post("/CommonSignup", async (req, res) => {
+  try {
+    
+    const commonSignup = new CommonSignup(req.body);
+    const savedCommonSignup = await commonSignup.save();
+    if (savedCommonSignup) {
+      res.status(201).send({ message: "success", data: savedCommonSignup });
     } else {
-      res.status(400).send({ message: "failed", data: savedStudentSignup });
+      res.status(400).send({ message: "failed", data: savedCommonSignup });
     }
-    console.log("result , ", savedStudentSignup);
+    console.log("result , ", savedCommonSignup);
   } catch (err) {
-    console.log("error in StudentSignup ", err);
+    console.log("error in CommonSignup ", err);
     res.status(500).send({ message: "failed", data: err });
   }
 });
 
-router.get("/StudentSignup/:id", async (req, res) => {
-    try {
-      const findById = await StudentSignup.findById(req.params.id);
-      res.json(findById);
-    } catch (err) {
-      console.log("error in get data", err);
-      res.status(204).send({ message: "failed", data: err });
-    }
-  });
-  
-  router.get("/StudentSignup/find/:name", async (req, res) => {
-    try {
-      const findByName = await StudentSignup.findOne(req.params);
-      res.json(findByName);
-    } catch (err) {
-      console.log("error in get data", err);
-      res.status(204).send({ message: "failed", data: err });
-    }
-  });
-
-  router.get("/StudentSignup", async(_, res) =>{
-    res.json(await StudentSignup.find({}));
-  
+router.get("/CommonSignup/:id", async (req, res) => {
+  try {
+    const findById = await CommonSignup.findById(req.params.id);
+    res.json(findById);
+  } catch (err) {
+    console.log("error in get data", err);
+    res.status(204).send({ message: "failed", data: err });
+  }
 });
 
-router.put("StudentSignup/update/:id", async(req, res) => {
-  try{
+router.get("/CommonSignup/find/:name", async (req, res) => {
+  try {
+    const findByName = await CommonSignup.findOne(req.params);
+    res.json(findByName);
+  } catch (err) {
+    console.log("error in get data", err);
+    res.status(204).send({ message: "failed", data: err });
+  }
+});
+
+router.get("/CommonSignup", async (_, res) => {
+  res.json(await CommonSignup.find({}));
+});
+
+router.put("CommonSignup/update/:id", async (req, res) => {
+  try {
     const data = req.body;
-    if (data){
-      const result = await StudentSignup.updateOne(
-        { _id: req.params.id},
-        {...data}
+    if (data) {
+      const result = await CommonSignup.updateOne(
+        { _id: req.params.id },
+        { ...data }
       );
       console.log("Success", result);
-      res.status(201).send({message:"success", data: result});
-    } else{
-      res.status(204).send({message:"update data can not be empty!"});
+      res.status(201).send({ message: "success", data: result });
+    } else {
+      res.status(204).send({ message: "update data can not be empty!" });
     }
-  }catch(err){
+  } catch (err) {
     console.log("error in get data", err);
-    res.status(204).send({message:"failed", data:err});
+    res.status(204).send({ message: "failed", data: err });
   }
-
 });
 
-router.delete("/StudentSignup/:id", async (req, res) => {
+router.delete("/CommonSignup/:id", async (req, res) => {
   try {
-    const deleteStudentSignup = await StudentSignup.findByIdAndDelete(req.params.id);
-    res.json(deleteStudentSignup);
+    const deleteCommonSignup = await CommonSignup.findByIdAndDelete(
+      req.params.id
+    );
+    res.json(deleteCommonSignup);
+    console.log("Deleted!");
+  } catch (err) {
+    console.log("error in get data", err);
+    res.status(204).send({ message: "failed", data: err });
+  }
+});
+
+//Lecturer
+
+router.post("/CommonSignup", async (req, res) => {
+  try {
+    const commonSignup = new CommonSignup(req.body);
+    const savedCommonSignup = await commonSignup.save();
+    if (savedCommonSignup) {
+      res.status(201).send({ message: "success", data: savedCommonSignup });
+    } else {
+      res.status(400).send({ message: "failed", data: savedCommonSignup });
+    }
+    console.log("result , ", savedCommonSignup);
+  } catch (err) {
+    console.log("error in CommonSignup ", err);
+    res.status(500).send({ message: "failed", data: err });
+  }
+});
+
+router.get("/CommonSignup/:id", async (req, res) => {
+  try {
+    const findById = await CommonSignup.findById(req.params.id);
+    res.json(findById);
+  } catch (err) {
+    console.log("error in get data", err);
+    res.status(204).send({ message: "failed", data: err });
+  }
+});
+
+router.get("/CommonSignup/find/:name", async (req, res) => {
+  try {
+    const findByName = await CommonSignup.findOne(req.params);
+    res.json(findByName);
+  } catch (err) {
+    console.log("error in get data", err);
+    res.status(204).send({ message: "failed", data: err });
+  }
+});
+
+router.get("/CommonSignup", async (_, res) => {
+  res.json(await CommonSignup.find({}));
+});
+
+router.delete("/CommonSignup/:id", async (req, res) => {
+  try {
+    const deleteCommonSignup = await CommonSignup.findByIdAndDelete(
+      req.params.id
+    );
+    res.json(deleteCommonSignup);
     console.log("Deleted!");
   } catch (err) {
     console.log("error in get data", err);
@@ -79,59 +135,49 @@ router.delete("/StudentSignup/:id", async (req, res) => {
 
 
 
-//Lecturer
 
-
-
-router.post("/LecturerSignup", async (req, res) => {
+// login
+router.post("/login", async (req, res) => {
   try {
-      const lecturerSignup = new LecturerSignup(req.body);
-      const savedLecturerSignup = await lecturerSignup.save();
-      if (savedLecturerSignup) {
-        res.status(201).send({ message: "success", data: savedLecturerSignup });
-      } else {
-        res.status(400).send({ message: "failed", data: savedLecturerSignup });
-      }
-      console.log("result , ", savedLecturerSignup);
-    } catch (err) {
-      console.log("error in LecturerSignup ", err);
-      res.status(500).send({ message: "failed", data: err });
-    }
-  });
+    const { email, password } = req.body;
 
-router.get("/LecturerSignup/:id", async (req, res) => {
-    try {
-      const findById = await LecturerSignup.findById(req.params.id);
-      res.json(findById);
-    } catch (err) {
-      console.log("error in get data", err);
-      res.status(204).send({ message: "failed", data: err });
+    const result = await CommonSignup.findOne({
+      $and: [{ email }, { inputpw: password }]
+    });
+    if (result) {
+      const token = jwt.sign(
+        {
+          exp: Math.floor(Date.now() / 1000) + 60 * 60,
+          data: {
+            _id: result._id,
+            email: result.email,
+            nic: result.nic,
+            role: result.role
+          }
+        },
+        "secret"
+      );
+      res
+        .status(200)
+        .send({
+          message: "success",
+          data: {
+            token,
+            _id: result._id,
+            email: result.email,
+            nic: result.nic,
+            role: result.role
+          }
+        });
+    } else {
+      res.status(401).send({ message: "Check email or password" });
     }
-  });
-  
-  router.get("/LecturerSignup/find/:name", async (req, res) => {
-    try {
-      const findByName = await LecturerSignup.findOne(req.params);
-      res.json(findByName);
-    } catch (err) {
-      console.log("error in get data", err);
-      res.status(204).send({ message: "failed", data: err });
-    }
-  });
-
-  router.get("/LecturerSignup", async(_, res) =>{
-    res.json(await LecturerSignup.find({}));
-  });
-
-  router.delete("/LecturerSignup/:id", async (req, res) => {
-    try {
-      const deleteLecturerSignup = await LecturerSignup.findByIdAndDelete(req.params.id);
-      res.json(deleteLecturerSignup);
-      console.log("Deleted!");
-    } catch (err) {
-      console.log("error in get data", err);
-      res.status(204).send({ message: "failed", data: err });
-    }
-  });
-
+    console.log("login succes ", result);
+  } catch (err) {
+    console.log("login requsee eror ", err);
+    res.status(500).send({ message: "failed", data: err });
+  }
+});
 module.exports = router;
+
+
