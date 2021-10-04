@@ -8,7 +8,7 @@ const jwt = require("jsonwebtoken");
 //Insert
 router.post("/CommonSignup", async (req, res) => {
   try {
-    
+
     const commonSignup = new CommonSignup(req.body);
     const savedCommonSignup = await commonSignup.save();
     if (savedCommonSignup) {
@@ -42,9 +42,9 @@ router.get("/CommonSignup", async (_, res) => {
 
 router.put("/CommonSignup/update/:id", async (req, res) => {
   try {
-    const updateCommonSignup = await CommonSignup.findByIdAndUpdate(req.params.id,req.body, {new:true});
+    const updateCommonSignup = await CommonSignup.findByIdAndUpdate(req.params.id, req.body, { new: true });
     res.json(updateCommonSignup);
-    console.log("result,",updateCommonSignup);
+    console.log("result,", updateCommonSignup);
   } catch (err) {
     console.log("error in getting review details", err);
     res.status(204).send({ message: "failed", data: err });
@@ -67,6 +67,7 @@ router.delete("/CommonSignup/:id", async (req, res) => {
 });
 
 // login
+
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -108,6 +109,7 @@ router.post("/login", async (req, res) => {
     res.status(500).send({ message: "failed", data: err });
   }
 });
+
 module.exports = router;
 
 
