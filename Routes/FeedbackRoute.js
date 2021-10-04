@@ -59,6 +59,18 @@ router.get("/review/findAll/:stid", async (req, res) => {
   }
 });
 
+//Get specific review
+router.get("/review/:id", async (req, res) => {
+  try {
+      const review = await Review.findById(req.params.id);
+      res.json(review);
+      console.log("result , ", review);
+  } catch (err) {
+      console.log("error in getting marks", err);
+      res.status(204).send({ message: "failed", data: err });
+  }
+});
+
 /*Edit reviews */
 router.put("/review/:id", async (req, res) => {
   try {
@@ -71,10 +83,10 @@ router.put("/review/:id", async (req, res) => {
   }
 });
 
-/*Delete reviews */
+/*delete specific review */
 router.delete("/review/:id", async (req, res) => {
   try {
-    const deleteReview = await Review.deleteOne(req.params);
+    const deleteReview = await Review.findByIdAndRemove(req.params.id);
     res.json(deleteReview);
     console.log("Deleted!");
   } catch (err) {
@@ -83,10 +95,21 @@ router.delete("/review/:id", async (req, res) => {
   }
 });
 
-/*Delete Replyed issues */
+/*Retreive coustomer issue details for admin */
+router.get("/contact/findAll", async (req, res) => {
+  try {
+    const findAll = await Contact.find(req.params);
+    res.json(findAll);
+  } catch (err) {
+    console.log("error in get data", err);
+    res.status(204).send({ message: "failed", data: err });
+  }
+});
+
+/*delete specific issue */
 router.delete("/contact/:id", async (req, res) => {
   try {
-    const deleteContact = await Contact.deleteOne(req.params);
+    const deleteContact= await Contact.findByIdAndRemove(req.params.id);
     res.json(deleteContact);
     console.log("Deleted!");
   } catch (err) {
@@ -94,16 +117,5 @@ router.delete("/contact/:id", async (req, res) => {
     res.status(204).send({ message: "failed", data: err });
   }
 });
-
-// /*Retreive reviews for lecture */
-// router.get("/wallet/findAll/:name", async (req, res) => {
-//   try {
-//     const findAll = await Wallet.find(req.params);
-//     res.json(findAll);
-//   } catch (err) {
-//     console.log("error in get data", err);
-//     res.status(204).send({ message: "failed", data: err });
-//   }
-// });
 
 module.exports = router;
