@@ -1,14 +1,25 @@
 const router = require("express").Router();
 const Enroll = require("../Models/StudentEnroll");
 const Perform = require("../Models/Performance");
-
+const extractToken = require("../TokenExtract");
+const jwt_decode = require('jwt-decode');
 
 /*Start Enroll API*/
 
 //Enroll a Student
 router.post("/enroll", async (req, res) => {
     try {
-        const enroll = new Enroll(req.body);
+        const decodeHeader = jwt_decode(extractToken(req));
+        const userID = decodeHeader.data._id;
+        console.log("header", decodeHeader);
+        console.log("ID : ", userID);
+        const enroll = new Enroll({
+            subject: req.body.subject,
+            course: req.body.course,
+            lecturer: req.body.lecturer,
+            date: req.body.date,
+            userID: userID
+        });
         const savedEnroll = await enroll.save();
         if (savedEnroll) {
             res.status(201).send({ message: "success", data: savedEnroll });
@@ -23,6 +34,7 @@ router.post("/enroll", async (req, res) => {
 });
 
 //Get My Courses
+
 router.get("/mycourses", async (req, res) => {
     try {
         const allMyCourses = await Enroll.find(req.params);
@@ -34,8 +46,20 @@ router.get("/mycourses", async (req, res) => {
     }
 });
 
+//Get My Courses
+router.get("/mycourses/:userID", async (req, res) => {
+    try {
+        const allMyCourses = await Enroll.find(req.params);
+        res.json(allMyCourses);
+        console.log("result , ", allMyCourses);
+    } catch (err) {
+        console.log("error in get enrolled courses", err);
+        res.status(204).send({ message: "failed", data: err });
+    }
+});
+
 //Get specific enroll
-router.get("/mycourses/:id", async (req, res) => {
+router.get("/mycoursesupdate/:id", async (req, res) => {
     try {
         const mycourse = await Enroll.findById(req.params.id);
         res.json(mycourse);
@@ -80,7 +104,19 @@ router.delete("/mycourses/:id", async (req, res) => {
 //Add a Mark
 router.post("/performance", async (req, res) => {
     try {
-        const perform = new Perform(req.body);
+        const decodeHeader = jwt_decode(extractToken(req));
+        const userID = decodeHeader.data._id;
+        console.log("header", decodeHeader);
+        console.log("ID : ", userID);
+        const perform = new Perform({
+            stdNIC: req.body.stdNIC,
+            subject: req.body.subject,
+            course: req.body.course,
+            uploadDate: req.body.uploadDate,
+            assignmentCode: req.body.assignmentCode,
+            result: req.body.result,
+            userID: userID
+        });
         const savedPerform = await perform.save();
         if (savedPerform) {
             res.status(201).send({ message: "success", data: savedPerform });
@@ -95,8 +131,8 @@ router.post("/performance", async (req, res) => {
 });
 
 
-//Get all marks
-router.get("/performance", async (req, res) => {
+//Get all marks lecturer
+router.get("/performance/:userID", async (req, res) => {
     try {
         const allMarks = await Perform.find(req.params);
         res.json(allMarks);
@@ -107,8 +143,22 @@ router.get("/performance", async (req, res) => {
     }
 });
 
+//Get all marks student
+router.get("/myperformance/:stdNIC", async (req, res) => {
+    try {
+        const allMarks = await Perform.find(req.params);
+        res.json(allMarks);
+        console.log("result , ", allMarks);
+    } catch (err) {
+        console.log("error in get marks", err);
+        res.status(204).send({ message: "failed", data: err });
+    }
+});
+
+
+
 //Get specific mark
-router.get("/performance/:id", async (req, res) => {
+router.get("/perform/:id", async (req, res) => {
     try {
         const mark = await Perform.findById(req.params.id);
         res.json(mark);
