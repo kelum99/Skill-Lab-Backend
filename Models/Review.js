@@ -24,6 +24,10 @@ const reviewSchema = new mongoose.Schema({
         min: 5,
         max: 50,
     },
+    userID:{
+        type: String,
+        required: true
+    },
             
 });
 

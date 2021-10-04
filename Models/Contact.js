@@ -29,6 +29,7 @@ const contactSchema = new mongoose.Schema({
         min: 5,
         max: 500,
     },
+    
 });
 
 const Contact = mongoose.model('Contact', contactSchema);
