@@ -16,6 +16,10 @@ const enrollSchema = new mongoose.Schema({
     date:{
         type: Date,
         default: Date.now
+    },
+    userID:{
+        type: String,
+        required: true
     }
 });
 

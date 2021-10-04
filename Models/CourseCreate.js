@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 
 const coursecreateSchema = new mongoose.Schema(
   {
-    
+     
     name: {
       type: String,
       trim: true,
@@ -36,6 +36,12 @@ const coursecreateSchema = new mongoose.Schema(
       maxlength: 320,
       required: true,
     },
+
+    userID:{
+      type: String,
+      required: true
+  }
+    
 
     
   });
