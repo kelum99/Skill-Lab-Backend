@@ -3,12 +3,13 @@ const mongoose = require('mongoose');
 const noticeSchema = new mongoose.Schema({
     date:{
         type: Date,
-        default: Date.now
+        default: Date.now,
+        required: true
     },
     notice:{
         type: String,
         required: true,
-        maxlength:250
+        maxlength:500
     },
 
 });

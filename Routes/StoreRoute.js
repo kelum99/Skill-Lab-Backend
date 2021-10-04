@@ -1,11 +1,23 @@
 const router = require("express").Router();
 const productDetails = require("../Models/productDetails");
 const Cart = require("../Models/Cart");
+const extractToken = require("../TokenExtract");
+const jwt_decode = require('jwt-decode');
 
 
 router.post("/productDetails", async (req, res) => {
   try {
-    const product = new productDetails(req.body);
+    const decodeHeader = jwt_decode(extractToken(req));
+    const userID = decodeHeader.data._id;
+    console.log("ID :", userID);
+    const product = new productDetails({
+      productId: req.body.productId,
+      productName: req.body.productName,
+      price: req.body.price,
+      category: req.body.category,
+      description: req.body.description,
+      userID: userID
+    });
     const savedproductDetails = await product.save();
     if (savedproductDetails) {
       res.status(201).send({ message: "success", data: savedproductDetails });
@@ -45,7 +57,7 @@ router.get("/product/find/:productName", async (req, res) => {
   }
 });
 
-router.get("/product/findAll/:productName", async (req, res) => {
+router.get("/product/findAll/:userID", async (req, res) => {
   try {
     const findAll = await productDetails.find(req.params);
     res.json(findAll);

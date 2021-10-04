@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const StudentSignupSchema = new mongoose.Schema({
+const CommonSignupSchema = new mongoose.Schema({
     name:{
         type: String,
         required: true,
@@ -42,8 +42,6 @@ const StudentSignupSchema = new mongoose.Schema({
         maxLength: 10
     },
 
-
-   
     inputpw:{
         type: String,
         required: true,
@@ -56,5 +54,5 @@ const StudentSignupSchema = new mongoose.Schema({
         
 });
 
-const StudentSignup = mongoose.model('StudentSignup', StudentSignupSchema);
-module.exports = StudentSignup;
+const CommonSignup = mongoose.model('CommonSignup', CommonSignupSchema);
+module.exports = CommonSignup;
