@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 
 const performSchema = new mongoose.Schema({
-    studentID:{
+    stdNIC:{
         type:String,
         required:true
     },
@@ -25,10 +25,11 @@ const performSchema = new mongoose.Schema({
     result:{
         type: Number,
         required:true,
-        min: 0,
-        max: 100
-
     },
+    userID:{
+        type: String,
+        required: true
+    }
 
 });
 
