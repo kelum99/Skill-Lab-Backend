@@ -37,7 +37,10 @@ const coursecreateSchema = new mongoose.Schema(
       required: true,
     },
 
-    images: {},
+    userID:{
+      type: String,
+      required: true
+  }
     
 
     

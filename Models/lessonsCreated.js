@@ -26,8 +26,7 @@ const lessoncreateSchema = new mongoose.Schema(
       minlength: 200,
     },
 
-
-
+  
   });
 
 
